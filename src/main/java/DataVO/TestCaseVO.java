@@ -4,6 +4,8 @@ package DataVO;
  * Created by Administrator on 2018/3/16.
  */
 public class TestCaseVO {
+    private Long id;
+
     private String name;
 
     private String caseId;
@@ -15,11 +17,20 @@ public class TestCaseVO {
     public TestCaseVO() {
     }
 
-    public TestCaseVO(String name, String caseId, String file, String info) {
+    public TestCaseVO(Long id, String name, String caseId, String file, String info) {
+        this.id = id;
         this.name = name;
         this.caseId = caseId;
         this.file = file;
         this.info = info;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

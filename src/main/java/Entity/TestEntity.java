@@ -90,7 +90,7 @@ public class TestEntity {
         for(Report report:this.reports){
             reportList.add(report.toReportVO());
         }
-        return new TestVO(project_id,testId,name,perform_times,latest_time,latest_person,language,src,isAuto,test_caseList,reportList);
+        return new TestVO(id,project_id,testId,name,perform_times,latest_time,latest_person,language,src,isAuto,test_caseList,reportList);
     }
 
     public Long getId() {

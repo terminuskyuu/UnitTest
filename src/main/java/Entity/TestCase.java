@@ -57,7 +57,7 @@ public class TestCase {
     }
 
     public TestCaseVO toTestCaseVO(){
-        return new TestCaseVO(name,caseId,file,info);
+        return new TestCaseVO(id,name,caseId,file,info);
     }
 
     public Long getId() {

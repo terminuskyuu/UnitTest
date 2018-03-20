@@ -10,6 +10,8 @@ import java.util.List;
  * Created by Administrator on 2018/3/16.
  */
 public class TestVO {
+    private Long id;
+
     private String project_id;
 
     private String testId;
@@ -35,7 +37,8 @@ public class TestVO {
     public TestVO() {
     }
 
-    public TestVO(String project_id, String testId, String name, int perform_times, String latest_time, String latest_person, String language, String src, boolean isAuto, List<TestCaseVO> test_case, List<ReportVO> reports) {
+    public TestVO(Long id, String project_id, String testId, String name, int perform_times, String latest_time, String latest_person, String language, String src, boolean isAuto, List<TestCaseVO> test_case, List<ReportVO> reports) {
+        this.id = id;
         this.project_id = project_id;
         this.testId = testId;
         this.name = name;
@@ -47,6 +50,14 @@ public class TestVO {
         this.isAuto = isAuto;
         this.test_case = test_case;
         this.reports = reports;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getProject_id() {

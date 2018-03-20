@@ -58,7 +58,7 @@ public class Bug {
         for(BugChange bugChange:this.bug_change){
             bug_changeList.add(bugChange.toBugChangeVO());
         }
-        return new BugVO(project_id,name,importance,info,state,bug_changeList);
+        return new BugVO(id,project_id,name,importance,info,state,bug_changeList);
     }
 
     public Long getId() {

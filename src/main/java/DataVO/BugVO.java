@@ -7,6 +7,8 @@ import java.util.List;
  * Created by Administrator on 2018/3/16.
  */
 public class BugVO {
+    private Long id;
+
     private String project_id;
 
     private String name;
@@ -22,13 +24,22 @@ public class BugVO {
     public BugVO() {
     }
 
-    public BugVO(String project_id, String name, String importance, String info, String state, List<BugChangeVO> bug_change) {
+    public BugVO(Long id, String project_id, String name, String importance, String info, String state, List<BugChangeVO> bug_change) {
+        this.id = id;
         this.project_id = project_id;
         this.name = name;
         this.importance = importance;
         this.info = info;
         this.state = state;
         this.bug_change = bug_change;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getProject_id() {

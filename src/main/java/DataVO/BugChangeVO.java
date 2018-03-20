@@ -7,6 +7,8 @@ import java.util.List;
  * Created by Administrator on 2018/3/16.
  */
 public class BugChangeVO {
+    private Long id;
+
     private String time;
 
     private String before;
@@ -20,12 +22,21 @@ public class BugChangeVO {
     public BugChangeVO() {
     }
 
-    public BugChangeVO(String time, String before, String after, String info, String manager) {
+    public BugChangeVO(Long id, String time, String before, String after, String info, String manager) {
+        this.id = id;
         this.time = time;
         this.before = before;
         this.after = after;
         this.info = info;
         this.manager = manager;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTime() {

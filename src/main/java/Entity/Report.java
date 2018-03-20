@@ -65,7 +65,7 @@ public class Report {
             fault_infoList.add(faultInfo.toFaultInfoVO());
         }
 
-        return new ReportVO(time,case_num,sucess_num,fail_num,error_info,fault_infoList);
+        return new ReportVO(id,time,case_num,sucess_num,fail_num,error_info,fault_infoList);
     }
 
     public Long getId() {

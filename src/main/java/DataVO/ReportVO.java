@@ -7,6 +7,8 @@ import java.util.List;
  * Created by Administrator on 2018/3/16.
  */
 public class ReportVO {
+    private Long id;
+
     private String time;
 
     private int case_num;
@@ -22,13 +24,22 @@ public class ReportVO {
     public ReportVO() {
     }
 
-    public ReportVO(String time, int case_num, int sucess_num, int fail_num, String error_info, List<FaultInfoVO> fault_info) {
+    public ReportVO(Long id, String time, int case_num, int sucess_num, int fail_num, String error_info, List<FaultInfoVO> fault_info) {
+        this.id = id;
         this.time = time;
         this.case_num = case_num;
         this.sucess_num = sucess_num;
         this.fail_num = fail_num;
         this.error_info = error_info;
         this.fault_info = fault_info;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTime() {

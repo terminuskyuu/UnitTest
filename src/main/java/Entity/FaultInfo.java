@@ -44,7 +44,7 @@ public class FaultInfo {
     }
 
     public FaultInfoVO toFaultInfoVO(){
-        return new FaultInfoVO(case_name,func_name,line,type);
+        return new FaultInfoVO(id,case_name,func_name,line,type);
     }
 
     public Long getId() {

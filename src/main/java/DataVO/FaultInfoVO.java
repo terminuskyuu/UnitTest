@@ -4,6 +4,8 @@ package DataVO;
  * Created by Administrator on 2018/3/16.
  */
 public class FaultInfoVO {
+    private Long id;
+
     private String case_name;
 
     private String func_name;
@@ -15,11 +17,20 @@ public class FaultInfoVO {
     public FaultInfoVO() {
     }
 
-    public FaultInfoVO(String case_name, String func_name, int line, String type) {
+    public FaultInfoVO(Long id, String case_name, String func_name, int line, String type) {
+        this.id = id;
         this.case_name = case_name;
         this.func_name = func_name;
         this.line = line;
         this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCase_name() {

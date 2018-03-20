@@ -46,7 +46,7 @@ public class BugChange {
     }
 
     public BugChangeVO toBugChangeVO(){
-        return new BugChangeVO(time,before,after,info,manager);
+        return new BugChangeVO(id,time,before,after,info,manager);
     }
 
 
