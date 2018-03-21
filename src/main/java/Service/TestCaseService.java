@@ -10,7 +10,7 @@ import java.util.List;
 public interface TestCaseService {
     public boolean createTestCase(TestCaseVO testCaseVO,Long testId);
 
-    public boolean deleteTestCase(TestCaseVO testCaseVO);
+    public boolean deleteTestCase(Long id);
 
     public boolean updateTestCase(TestCaseVO testCaseVO);
 

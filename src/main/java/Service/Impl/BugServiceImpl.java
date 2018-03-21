@@ -2,41 +2,68 @@ package Service.Impl;
 
 import DataVO.BugChangeVO;
 import DataVO.BugVO;
+import Entity.Bug;
+import Entity.BugChange;
+import Repository.BugRepository;
 import Service.BugService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2018/3/20.
  */
+@Service
 public class BugServiceImpl implements BugService{
+    @Autowired
+    private BugRepository bugRepository;
+
     @Override
     public boolean createBug(BugVO bugVO) {
-        return false;
+        bugRepository.save(new Bug(bugVO));
+        return true;
     }
 
     @Override
-    public boolean deleteBug(BugVO bugVO) {
-        return false;
+    public boolean deleteBug(Long id) {
+        bugRepository.delete(id);
+        bugRepository.flush();
+        return true;
     }
 
     @Override
     public boolean updateBug(BugVO bugVO) {
-        return false;
+        Bug bug=new Bug(bugVO);
+        bug.setId(bugVO.getId());
+        bugRepository.saveAndFlush(bug);
+        return true;
     }
 
     @Override
     public List<BugVO> getBugByProject(String projectId) {
-        return null;
+
+        List<BugVO> list =new ArrayList<BugVO>();
+        for(Bug bug:bugRepository.findByProject_id(projectId)){
+            list.add(bug.toBugVO());
+        }
+
+        return list;
     }
 
     @Override
     public BugVO getBugById(Long id) {
-        return null;
+        return bugRepository.findById(id).toBugVO();
     }
 
     @Override
     public boolean createBugChange(BugChangeVO bugChangeVO, Long bugId) {
-        return false;
+        BugChange bugChange=new BugChange(bugChangeVO);
+        Bug bug=bugRepository.findById(bugId);
+        bug.addBug_change(bugChange);
+        bugRepository.saveAndFlush(bug);
+
+        return true;
     }
 }

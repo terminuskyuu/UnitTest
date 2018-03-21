@@ -47,6 +47,9 @@ public class Report {
     }
 
     public Report(ReportVO reportVO) {
+        if(reportVO.getId()!=null&&reportVO.getId()!=0){
+            this.id=reportVO.getId();
+        }
         this.time = reportVO.getTime();
         this.case_num = reportVO.getCase_num();
         this.sucess_num = reportVO.getSucess_num();

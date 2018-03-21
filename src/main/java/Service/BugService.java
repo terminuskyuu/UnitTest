@@ -11,7 +11,7 @@ import java.util.List;
 public interface BugService {
     public boolean createBug(BugVO bugVO);
 
-    public boolean deleteBug(BugVO bugVO);
+    public boolean deleteBug(Long id);
 
     public boolean updateBug(BugVO bugVO);
 

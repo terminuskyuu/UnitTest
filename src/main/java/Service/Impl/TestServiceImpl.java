@@ -1,38 +1,60 @@
 package Service.Impl;
 
 import DataVO.TestVO;
+import Entity.TestEntity;
+import Repository.TestRepository;
 import Service.TestService;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 /**
  * Created by Administrator on 2018/3/20.
  */
-public class TestServiceImpl implements TestService{
 
+@Service
+public class TestServiceImpl implements TestService{
+    @Autowired
+    private TestRepository testRepository;
 
     @Override
     public boolean createTest(TestVO testVO) {
-        return false;
+        TestEntity test=new TestEntity(testVO);
+        testRepository.save(test);
+        return true;
     }
 
     @Override
-    public boolean deleteTest(TestVO testVO) {
+    public boolean deleteTest(Long id) {
+
+        testRepository.delete(id);
+        testRepository.flush();
         return false;
     }
 
     @Override
     public boolean updateTest(TestVO testVO) {
-        return false;
+        TestEntity input=new TestEntity(testVO);
+        input.setId(testVO.getId());
+        testRepository.saveAndFlush(input);
+
+        return true;
     }
 
     @Override
     public List<TestVO> getTestByProject(String projectId) {
-        return null;
+        List<TestVO> list=new ArrayList<TestVO>();
+        for(TestEntity temp:testRepository.findByProject_id(projectId)){
+            list.add(temp.toTestVO());
+        }
+        return list;
     }
 
     @Override
     public TestVO getTestById(Long id) {
-        return null;
+        TestEntity test=testRepository.findById(id);
+        return test.toTestVO();
     }
 }

@@ -10,7 +10,7 @@ import java.util.List;
 public interface TestService {
     public boolean createTest(TestVO testVO);
 
-    public boolean deleteTest(TestVO testVO);
+    public boolean deleteTest(Long id);
 
     public boolean updateTest(TestVO testVO);
 

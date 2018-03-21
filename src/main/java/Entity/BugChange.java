@@ -38,6 +38,9 @@ public class BugChange {
     }
 
     public BugChange(BugChangeVO bugChangeVO) {
+        if(bugChangeVO.getId()!=null&&bugChangeVO.getId()!=0){
+            this.id=bugChangeVO.getId();
+        }
         this.time =bugChangeVO.getTime();
         this.before =bugChangeVO.getBefore();
         this.after = bugChangeVO.getAfter();

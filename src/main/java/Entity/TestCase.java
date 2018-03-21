@@ -51,6 +51,9 @@ public class TestCase {
     }
 
     public TestCase(TestCaseVO testCaseVO) {
+        if(testCaseVO.getId()!=null&&testCaseVO.getId()!=0){
+            this.id=testCaseVO.getId();
+        }
         this.name = testCaseVO.getName();
         this.caseId = testCaseVO.getCaseId();
         this.file = testCaseVO.getFile();

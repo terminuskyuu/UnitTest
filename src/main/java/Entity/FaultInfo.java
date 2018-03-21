@@ -37,6 +37,9 @@ public class FaultInfo {
     }
 
     public FaultInfo(FaultInfoVO faultInfoVO) {
+        if(faultInfoVO.getId()!=null&&faultInfoVO.getId()!=0){
+            this.id=faultInfoVO.getId();
+        }
         this.case_name = faultInfoVO.getCase_name();
         this.func_name = faultInfoVO.getFunc_name();
         this.line = faultInfoVO.getLine();

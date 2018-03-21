@@ -58,6 +58,9 @@ public class TestEntity {
     }
 
     public TestEntity(TestVO testVO) {
+        if(testVO.getId()!=null&&testVO.getId()!=0){
+            this.id=testVO.getId();
+        }
         this.project_id = testVO.getProject_id();
         this.testId = testVO.getTestId();
         this.name = testVO.getName();

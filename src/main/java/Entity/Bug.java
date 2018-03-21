@@ -42,6 +42,9 @@ public class Bug {
     }
 
     public Bug(BugVO bugVO){
+        if(bugVO.getId()!=null&&bugVO.getId()!=0){
+            this.id=bugVO.getId();
+        }
         this.name = bugVO.getName();
         this.importance = bugVO.getImportance();
         this.info = bugVO.getInfo();
