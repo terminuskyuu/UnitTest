@@ -1,18 +1,16 @@
-package Controller;
-
 import java.io.*;
 
 /**
  * Created by Administrator on 2018/3/21.
  */
 public class bbb {
-    public static void main(String[] args){
+    public static void bbb(String[] args){
         String path="C:\\java\\abcc\\test.bat";
 
 
         Runtime runtime = Runtime.getRuntime();
         String command="";
-        command="cmd /c C: &&cd C:\\java\\abcc && call mvn test ";
+        command="cmd /c C: &&cd C:\\java\\abcc && call mvn -Dtest=Hello2Test,Hello3Test test ";
         Process process=null;
 
         String line = null;
