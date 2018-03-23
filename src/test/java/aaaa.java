@@ -5,9 +5,9 @@ import java.io.*;
  */
 public class aaaa {
 
-    public static void aa(){
-        String path="C:\\java\\abcc\\test.bat";
-
+    public static void aaa(String[] args){
+        String path="C:\\java\\py\\test\\test.bat";
+        String src="C:\\java\\py\\test";
         File file = new File(path);
         if(!file.exists()){
             file.getParentFile().mkdirs();
@@ -16,9 +16,8 @@ public class aaaa {
             file.createNewFile();
             FileWriter fw = new FileWriter(file, false);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write("C: & cd C:\\java\\abcc\n"+
-                    "call mvn test\n" +
-                    "exit");
+            bw.write("cmd /c  C: &&  cd C:\\java\\py\\test  && py -m pytest C:\\java\\py\\test\\py_test1.py"+" --junitxml=" + src + "\\report\\log.xml"+
+            "\n exit");
             bw.flush();
             bw.close();
             fw.close();

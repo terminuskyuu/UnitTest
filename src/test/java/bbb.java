@@ -5,7 +5,7 @@ import java.io.*;
  */
 public class bbb {
     public static void bbb(String[] args){
-        String path="C:\\java\\abcc\\test.bat";
+        String path="C:\\java\\py\\test\\test.bat";
 
 
         Runtime runtime = Runtime.getRuntime();
