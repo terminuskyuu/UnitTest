@@ -1,5 +1,6 @@
 package Service.Impl;
 
+import DataVO.ReportVO;
 import Entity.FaultInfo;
 import Entity.Report;
 import Entity.TestEntity;
@@ -29,7 +30,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
     private TestRepository testRepository;
 
     @Override
-    public Report javaTestAll(Long testId) {
+    public ReportVO javaTestAll(Long testId) {
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
@@ -58,11 +59,11 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         Report report=javaReport(src);
         boolean isSuccess=saveReport(report,testId);
 
-        return report;
+        return report.toReportVO();
     }
 
     @Override
-    public Report javaTest(List<String> file, Long testId) {
+    public ReportVO javaTest(List<String> file, Long testId) {
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
@@ -96,11 +97,11 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         Report report=javaReport(src);
         boolean isSuccess=saveReport(report,testId);
 
-        return report;
+        return report.toReportVO();
     }
 
     @Override
-    public Report pythonTest(List<String> file, Long testId) {
+    public ReportVO pythonTest(List<String> file, Long testId) {
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
@@ -133,11 +134,11 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         Report report=pythonReport(src);
         boolean isSuccess=saveReport(report,testId);
 
-        return report;
+        return report.toReportVO();
     }
 
     @Override
-    public Report cTest(List<String> file, Long testId) {
+    public ReportVO cTest(List<String> file, Long testId) {
         return null;
     }
 
