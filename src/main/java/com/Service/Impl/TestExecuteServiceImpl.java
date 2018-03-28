@@ -138,8 +138,58 @@ public class TestExecuteServiceImpl implements TestExecuteService{
     }
 
     @Override
-    public ReportVO cTest(List<String> file, Long testId) {
-        return null;
+    public ReportVO cTest(List<String> file, Long testId) {  //需要报告文件名
+        Runtime runtime = Runtime.getRuntime();
+        String command="";
+        String src=testRepository.findById(testId).getSrc();
+
+        String path=src+="\\makefile";
+        File makefile = new File(path);
+        if(!makefile.exists()){
+            makefile.getParentFile().mkdirs();
+        }
+        try {
+            makefile.createNewFile();
+            FileWriter fw = new FileWriter(makefile, false);
+            BufferedWriter bw = new BufferedWriter(fw);
+            String content="IINC=-I/usr/local/include/CUnit\n" +
+                    "LIB=-L/usr/local/lib/\n\n"+"all: ";
+            for(String str:file){
+                content+=str+" ";
+            }
+            content=content+"\n"+"\tgcc $^ -o test $(INC) $(LIB) -lcunit -static ";
+            bw.write(content);
+            bw.flush();
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        command="make&& ./test "; //to do
+
+        String line = null;
+        String out="";
+        try {
+            Process process = runtime.exec(command);
+            BufferedReader bufferedReader = new BufferedReader
+                    (new InputStreamReader(process.getInputStream()));
+
+            while ((line = bufferedReader.readLine()) != null) {
+                out=out+line + "\n";
+            }
+            process.waitFor();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(out);
+
+        Report report=cReport(src);
+        boolean isSuccess=saveReport(report,testId);
+
+        return report.toReportVO();
     }
 
     private Report javaReport(String src){
@@ -314,13 +364,36 @@ public class TestExecuteServiceImpl implements TestExecuteService{
     }
 
     private Report cReport(String src){  //需要dtd
-        src+="\\log-Results.xml";
-        File log=new File(src);
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Report report=new Report();
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         report.setTime(sdf.format(d));
+        File log=null;
+        File dir=new File(src);
+        if (!dir.isDirectory()) {
+            System.out.println("not a dir");
+
+            report.setError_info("diretory error");
+        } else {
+            // 内部匿名类，用来过滤文件类型
+            File[] xmlList = dir.listFiles(new FileFilter() {
+                public boolean accept(File file) {
+                    if (file.isFile() && file.getName().endsWith("-Results.xml")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+
+            log=xmlList[0];
+        }
+
+        if(log==null){
+            report.setError_info("no file");
+            return report;
+        }
 
         int cases=0;
         int failures=0;
