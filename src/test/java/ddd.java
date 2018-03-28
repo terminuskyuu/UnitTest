@@ -1,5 +1,5 @@
-import Entity.FaultInfo;
-import Entity.Report;
+import com.Entity.FaultInfo;
+import com.Entity.Report;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
