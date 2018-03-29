@@ -18,6 +18,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
     private TestRepository testRepository;
 
     @Override
-    public ReportVO javaTestAll(Long testId) {
+    public ReportVO javaTestAll(Long testId ,String username) {
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
@@ -57,13 +58,17 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         System.out.println(out);
 
         Report report=javaReport(src);
-        boolean isSuccess=saveReport(report,testId);
+        boolean isSuccess=saveReport(report,testId,username);
 
         return report.toReportVO();
     }
 
     @Override
-    public ReportVO javaTest(List<String> file, Long testId) {
+    public ReportVO javaTest(List<String> file, Long testId ,String username) {
+        if(file.isEmpty()){
+            return null;
+        }
+
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
@@ -95,13 +100,17 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         System.out.println(out);
 
         Report report=javaReport(src);
-        boolean isSuccess=saveReport(report,testId);
+        boolean isSuccess=saveReport(report,testId,username);
 
         return report.toReportVO();
     }
 
     @Override
-    public ReportVO pythonTest(List<String> file, Long testId) {
+    public ReportVO pythonTest(List<String> file, Long testId ,String username) {
+        if(file.isEmpty()){
+            return null;
+        }
+
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
@@ -132,13 +141,44 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         System.out.println(out);
 
         Report report=pythonReport(src);
-        boolean isSuccess=saveReport(report,testId);
+        boolean isSuccess=saveReport(report,testId,username);
 
         return report.toReportVO();
     }
 
     @Override
-    public ReportVO cTest(List<String> file, Long testId) {  //需要报告文件名
+    public ReportVO pythonTestAll(Long testId ,String username) {
+        String src=testRepository.findById(testId).getSrc();
+        File dir=new File(src);
+        if (!dir.isDirectory()) {
+            System.out.println("not a dir");
+            Report report=new Report();
+            report.setError_info("diretory error");
+            return report.toReportVO();
+        } else {
+            // 内部匿名类，用来过滤文件类型
+            File[] pyList = dir.listFiles(new FileFilter() {
+                public boolean accept(File file) {
+                    if (file.isFile() && file.getName().endsWith(".py")&& file.getName().toLowerCase().contains("test")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            List<String> files=new ArrayList<String>();
+            for(int i=0;i<pyList.length;i++){
+                files.add(pyList[i].getName());
+            }
+            return pythonTest(files,testId,username);
+
+        }
+
+
+    }
+
+    @Override
+    public ReportVO cTest(List<String> file, Long testId ,String username) {  //需要报告文件名
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
@@ -187,7 +227,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         System.out.println(out);
 
         Report report=cReport(src);
-        boolean isSuccess=saveReport(report,testId);
+        boolean isSuccess=saveReport(report,testId,username);
 
         return report.toReportVO();
     }
@@ -466,8 +506,11 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         return report;
     }
 
-    private boolean saveReport(Report report, Long testId){
+    private boolean saveReport(Report report, Long testId ,String username){
         TestEntity testEntity=testRepository.findById(testId);
+        testEntity.setLatest_time(report.getTime());
+        testEntity.setPerform_times(testEntity.getPerform_times()+1);
+        testEntity.setLatest_person(username);
         testEntity.addReports(report);
         testRepository.saveAndFlush(testEntity);
         return true;

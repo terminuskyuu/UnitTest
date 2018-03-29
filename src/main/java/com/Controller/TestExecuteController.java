@@ -16,23 +16,28 @@ public class TestExecuteController {
     TestExecuteService testExecuteService;
 
     @RequestMapping(value = "/test/java-all", method = RequestMethod.POST)
-    public ReportVO javaTestAll(@RequestParam("id") long id){
-        return testExecuteService.javaTestAll(id);
+    public ReportVO javaTestAll(@RequestParam("id") long id,@RequestParam ("username") String username){
+        return testExecuteService.javaTestAll(id,username);
     }
 
     @RequestMapping(value = "/test/java", method = RequestMethod.POST)
-    public ReportVO javaTest(@RequestParam("id") long id,@RequestParam("file") List<String> file){
-        return testExecuteService.javaTest(file,id);
+    public ReportVO javaTest(@RequestParam("id") long id,@RequestParam("file") List<String> file,@RequestParam ("username") String username){
+        return testExecuteService.javaTest(file,id,username);
+    }
+
+    @RequestMapping(value = "/test/python-all", method = RequestMethod.POST)
+    public ReportVO pythonTestAll(@RequestParam("id") long id,@RequestParam("file") List<String> file ,@RequestParam ("username") String username){
+        return testExecuteService.pythonTestAll(id,username);
     }
 
     @RequestMapping(value = "/test/python", method = RequestMethod.POST)
-    public ReportVO pythonTest(@RequestParam("id") long id,@RequestParam("file") List<String> file){
-        return testExecuteService.javaTest(file,id);
+    public ReportVO pythonTest(@RequestParam("id") long id,@RequestParam("file") List<String> file ,@RequestParam ("username") String username){
+        return testExecuteService.javaTest(file,id,username);
     }
 
     @RequestMapping(value = "/test/c", method = RequestMethod.POST)
-    public ReportVO cTest(@RequestParam("id") long id,@RequestParam("file") List<String> file){
-        return testExecuteService.javaTest(file,id);
+    public ReportVO cTest(@RequestParam("id") long id,@RequestParam("file") List<String> file ,@RequestParam ("username") String username){
+        return testExecuteService.javaTest(file,id,username);
     }
 
 }

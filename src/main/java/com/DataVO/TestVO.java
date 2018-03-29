@@ -24,6 +24,8 @@ public class TestVO {
 
     private String src;
 
+    private String branch;
+
     private boolean isAuto;
 
     private List<TestCaseVO> test_case;
@@ -33,7 +35,7 @@ public class TestVO {
     public TestVO() {
     }
 
-    public TestVO(Long id, String project_id, String testId, String name, int perform_times, String latest_time, String latest_person, String language, String src, boolean isAuto, List<TestCaseVO> test_case, List<ReportVO> reports) {
+    public TestVO(Long id, String project_id, String testId, String name, int perform_times, String latest_time, String latest_person, String language, String src, String branch, boolean isAuto, List<TestCaseVO> test_case, List<ReportVO> reports) {
         this.id = id;
         this.project_id = project_id;
         this.testId = testId;
@@ -43,6 +45,7 @@ public class TestVO {
         this.latest_person = latest_person;
         this.language = language;
         this.src = src;
+        this.branch = branch;
         this.isAuto = isAuto;
         this.test_case = test_case;
         this.reports = reports;
@@ -142,5 +145,13 @@ public class TestVO {
 
     public void setReports(List<ReportVO> reports) {
         this.reports = reports;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 }

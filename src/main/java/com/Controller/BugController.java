@@ -49,7 +49,7 @@ public class BugController {
         return bug;
     }
 
-    @RequestMapping(value = "/bug/Change", method = RequestMethod.POST)
+    @RequestMapping(value = "/bug/change", method = RequestMethod.POST)
     public MyResponseData<Boolean> changeBug(@RequestParam("bugId") long bugId, @RequestParam("change")BugChangeVO bugChangeVO){
         bugService.createBugChange(bugChangeVO,bugId);
         return new MyResponseData<Boolean>("succeed", new String[]{"成功更改缺陷！"}, true);

@@ -32,6 +32,8 @@ public class TestEntity {
 
     private String src;
 
+    private String branch;
+
     private boolean isAuto;
 
     @OneToMany(mappedBy = "testEntity", cascade = {CascadeType.ALL})
@@ -43,7 +45,7 @@ public class TestEntity {
     public TestEntity() {
     }
 
-    public TestEntity(String project_id, String testId, String name, int perform_times, String latest_time, String latest_person, String language, String src, boolean isAuto, List<TestCase> test_case, List<Report> reports) {
+    public TestEntity(String project_id, String testId, String name, int perform_times, String latest_time, String latest_person, String language, String src, String branch,boolean isAuto, List<TestCase> test_case, List<Report> reports) {
         this.project_id = project_id;
         this.testId = testId;
         this.name = name;
@@ -52,6 +54,7 @@ public class TestEntity {
         this.latest_person = latest_person;
         this.language = language;
         this.src = src;
+        this.branch=branch;
         this.isAuto = isAuto;
         this.test_case = test_case;
         this.reports = reports;
@@ -69,6 +72,7 @@ public class TestEntity {
         this.latest_person = testVO.getLatest_person();
         this.language = testVO.getLanguage();
         this.src = testVO.getSrc();
+        this.branch=testVO.getBranch();
         this.isAuto = testVO.isAuto();
         this.test_case = test_case;
         this.reports = reports;
@@ -93,7 +97,7 @@ public class TestEntity {
         for(Report report:this.reports){
             reportList.add(report.toReportVO());
         }
-        return new TestVO(id,project_id,testId,name,perform_times,latest_time,latest_person,language,src,isAuto,test_caseList,reportList);
+        return new TestVO(id,project_id,testId,name,perform_times,latest_time,latest_person,language,src,branch,isAuto,test_caseList,reportList);
     }
 
     public Long getId() {
@@ -190,6 +194,14 @@ public class TestEntity {
 
     public void setReports(List<Report> reports) {
         this.reports = reports;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
     }
 
     public void addTest_case(TestCase test_case) {

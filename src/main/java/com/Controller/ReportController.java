@@ -6,6 +6,8 @@ import com.Service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public class ReportController {
         return new MyResponseData<Boolean>("succeed", new String[]{"成功删除缺陷！"}, true);
     }
 
-    @RequestMapping(value = "/report/get-by-project", method = RequestMethod.GET)
+    @RequestMapping(value = "/report/get-by-test", method = RequestMethod.GET)
     public List<ReportVO> getReportByTest(@RequestParam("testId") long id){
         List<ReportVO> reports=reportService.getReportByTest(id);
         return reports;
@@ -38,6 +40,25 @@ public class ReportController {
     public ReportVO getReportById(@RequestParam("id") long id){
         ReportVO report=reportService.getReportById(id);
         return report;
+    }
+
+    @RequestMapping(value = "/report/get-latest", method = RequestMethod.GET)
+    public ReportVO getLatestReport(@RequestParam("testId") long id){
+        List<ReportVO> reports=reportService.getReportByTest(id);
+        ReportVO latest;
+        latest=reports.get(reports.size()-1);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for (ReportVO temp:reports){
+            try {
+                if (sdf.parse(temp.getTime()).before(sdf.parse(latest.getTime()))){
+                    latest=temp;
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        }
+        return latest;
     }
 
 }
