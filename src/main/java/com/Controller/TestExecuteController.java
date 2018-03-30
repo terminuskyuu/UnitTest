@@ -1,7 +1,9 @@
 package com.Controller;
 
+import com.Common.Language;
 import com.DataVO.ReportVO;
 import com.Service.TestExecuteService;
+import com.Service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,31 +15,41 @@ import java.util.List;
 @RestController
 public class TestExecuteController {
     @Autowired
+    TestService testService;
+    @Autowired
     TestExecuteService testExecuteService;
 
-    @RequestMapping(value = "/test/java-all", method = RequestMethod.POST)
-    public ReportVO javaTestAll(@RequestParam("id") long id,@RequestParam ("username") String username){
-        return testExecuteService.javaTestAll(id,username);
+    @RequestMapping(value = "/test/execute-all", method = RequestMethod.POST)
+    public ReportVO TestAll(@RequestParam("id") long id,@RequestParam ("username") String username){
+        String lan=testService.getTestById(id).getLanguage();
+        if(lan.equalsIgnoreCase(Language.java.toString())){
+            return testExecuteService.javaTestAll(id,username);
+
+        }else if(lan.equalsIgnoreCase(Language.python.toString())){
+            return testExecuteService.pythonTestAll(id,username);
+        }else if(lan.equalsIgnoreCase(Language.c.toString())){
+            return null;
+        }else{
+            return null;
+        }
+
+
     }
 
-    @RequestMapping(value = "/test/java", method = RequestMethod.POST)
-    public ReportVO javaTest(@RequestParam("id") long id,@RequestParam("file") List<String> file,@RequestParam ("username") String username){
-        return testExecuteService.javaTest(file,id,username);
+    @RequestMapping(value = "/test/execute", method = RequestMethod.POST)
+    public ReportVO executeTest(@RequestParam("id") long id,@RequestParam("file") List<String> file,@RequestParam ("username") String username){
+        String lan=testService.getTestById(id).getLanguage();
+        if(lan.equalsIgnoreCase(Language.java.toString())){
+            return testExecuteService.javaTest(file,id,username);
+
+        }else if(lan.equalsIgnoreCase(Language.python.toString())){
+            return testExecuteService.pythonTest(file,id,username);
+        }else if(lan.equalsIgnoreCase(Language.c.toString())){
+            return testExecuteService.cTest(file,id,username);
+        }else{
+            return null;
+        }
     }
 
-    @RequestMapping(value = "/test/python-all", method = RequestMethod.POST)
-    public ReportVO pythonTestAll(@RequestParam("id") long id,@RequestParam("file") List<String> file ,@RequestParam ("username") String username){
-        return testExecuteService.pythonTestAll(id,username);
-    }
-
-    @RequestMapping(value = "/test/python", method = RequestMethod.POST)
-    public ReportVO pythonTest(@RequestParam("id") long id,@RequestParam("file") List<String> file ,@RequestParam ("username") String username){
-        return testExecuteService.javaTest(file,id,username);
-    }
-
-    @RequestMapping(value = "/test/c", method = RequestMethod.POST)
-    public ReportVO cTest(@RequestParam("id") long id,@RequestParam("file") List<String> file ,@RequestParam ("username") String username){
-        return testExecuteService.javaTest(file,id,username);
-    }
 
 }
