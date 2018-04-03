@@ -64,8 +64,8 @@ public class BugServiceImpl implements BugService{
     public boolean createBugChange(BugChangeVO bugChangeVO, Long bugId) {
         BugChange bugChange=new BugChange(bugChangeVO);
         Bug bug=bugRepository.findById(bugId);
-        bugChange.setBefore(bug.getState());
-        bug.setState(bugChange.getAfter());
+        bugChange.setBefore_state(bug.getState());
+        bug.setState(bugChange.getAfter_state());
         bug.addBug_change(bugChange);
         bugRepository.saveAndFlush(bug);
 
