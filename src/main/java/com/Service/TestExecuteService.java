@@ -17,4 +17,6 @@ public interface TestExecuteService {
     public ReportVO pythonTestAll(Long testId ,String username);
 
     public ReportVO cTest(List<String> file,Long testId ,String username);
+
+    public ReportVO cTestAll(Long testId ,String username);
 }

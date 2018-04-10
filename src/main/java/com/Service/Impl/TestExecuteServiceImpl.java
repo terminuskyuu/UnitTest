@@ -315,6 +315,37 @@ public class TestExecuteServiceImpl implements TestExecuteService{
 
     }
 
+    @Override
+    public ReportVO cTestAll(Long testId ,String username) {
+        String src=testRepository.findById(testId).getSrc();
+        File dir=new File(src);
+        if (!dir.isDirectory()) {
+            System.out.println("not a dir");
+            Report report=new Report();
+            report.setError_info("diretory error");
+            return report.toReportVO();
+        } else {
+            // 内部匿名类，用来过滤文件类型
+            File[] pyList = dir.listFiles(new FileFilter() {
+                public boolean accept(File file) {
+                    if (file.isFile() && file.getName().endsWith(".c")) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            });
+            List<String> files=new ArrayList<String>();
+            for(int i=0;i<pyList.length;i++){
+                files.add(pyList[i].getName());
+            }
+            return cTest(files,testId,username);
+
+        }
+
+
+    }
+
     private Report pythonReport(String src){
         src+="/log.xml";
         File log=new File(src);
