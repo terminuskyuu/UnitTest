@@ -39,8 +39,8 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         String src=testRepository.findById(testId).getSrc();
 
         String path=""+src;
-        String shPath=src+="/exectest.sh";
-        File shfile = new File(path);
+        String shPath=src+"/exectest.sh";
+        File shfile = new File(shPath);
         if(!shfile.exists()){
             shfile.getParentFile().mkdirs();
         }
@@ -57,11 +57,11 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         }
 
         command="cd "+path+" && sh ./exectest.sh ";
-
+        String[] commands=new String[]{"/bin/sh","-c",command};
         String line = null;
         String out="";
         try {
-            Process process = runtime.exec(command);
+            Process process = runtime.exec(commands);
             BufferedReader bufferedReader = new BufferedReader
                     (new InputStreamReader(process.getInputStream()));
 
@@ -93,8 +93,8 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         String src=testRepository.findById(testId).getSrc();
 
         String path=""+src;
-        String shPath=src+="/exectest.sh";
-        File shfile = new File(path);
+        String shPath=src+"/exectest.sh";
+        File shfile = new File(shPath);
         if(!shfile.exists()){
             shfile.getParentFile().mkdirs();
         }
@@ -111,11 +111,11 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         }
 
         command="cd "+path+" && sh ./exectest.sh ";
-
+        String[] commands=new String[]{"/bin/sh","-c",command};
         String line = null;
         String out="";
         try {
-            Process process = runtime.exec(command);
+            Process process = runtime.exec(commands);
             BufferedReader bufferedReader = new BufferedReader
                     (new InputStreamReader(process.getInputStream()));
 
@@ -147,8 +147,8 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         String src=testRepository.findById(testId).getSrc();
 
         String path=""+src;
-        String shPath=src+="/exectest.sh";
-        File shfile = new File(path);
+        String shPath=src+"/exectest.sh";
+        File shfile = new File(shPath);
         if(!shfile.exists()){
             shfile.getParentFile().mkdirs();
         }
@@ -165,11 +165,11 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         }
 
         command="cd "+path+" && sh ./exectest.sh ";
-
+        String[] commands=new String[]{"/bin/sh","-c",command};
         String line = null;
         String out="";
         try {
-            Process process = runtime.exec(command);
+            Process process = runtime.exec(commands);
             BufferedReader bufferedReader = new BufferedReader
                     (new InputStreamReader(process.getInputStream()));
 
@@ -263,11 +263,11 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         }
 
         command="cd "+path+" && sh ./exectest.sh ";
-
+        String[] commands=new String[]{"/bin/sh","-c",command};
         String line = null;
         String out="";
         try {
-            Process process = runtime.exec(command);
+            Process process = runtime.exec(commands);
             BufferedReader bufferedReader = new BufferedReader
                     (new InputStreamReader(process.getInputStream()));
 

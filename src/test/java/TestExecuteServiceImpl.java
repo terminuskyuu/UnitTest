@@ -1,4 +1,4 @@
-package com.Service.Impl;
+
 
 import com.DataVO.ReportVO;
 import com.Entity.FaultInfo;
@@ -26,11 +26,11 @@ import java.util.List;
  * Created by Administrator on 2018/3/20.
  */
 @Service
-public class TestExecuteServiceImpl implements TestExecuteService{
+public class TestExecuteServiceImpl {
     @Autowired
     private TestRepository testRepository;
 
-    @Override
+
     public ReportVO javaTestAll(Long testId ,String username) {
         Runtime runtime = Runtime.getRuntime();
         String command="";
@@ -63,7 +63,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         return report.toReportVO();
     }
 
-    @Override
+
     public ReportVO javaTest(List<String> file, Long testId ,String username) {
         if(file.isEmpty()){
             return null;
@@ -105,7 +105,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         return report.toReportVO();
     }
 
-    @Override
+
     public ReportVO pythonTest(List<String> file, Long testId ,String username) {
         if(file.isEmpty()){
             return null;
@@ -146,7 +146,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         return report.toReportVO();
     }
 
-    @Override
+
     public ReportVO pythonTestAll(Long testId ,String username) {
         String src=testRepository.findById(testId).getSrc();
         File dir=new File(src);
@@ -177,7 +177,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
 
     }
 
-    @Override
+
     public ReportVO cTest(List<String> file, Long testId ,String username) {  //需要报告文件名
         Runtime runtime = Runtime.getRuntime();
         String command="";
