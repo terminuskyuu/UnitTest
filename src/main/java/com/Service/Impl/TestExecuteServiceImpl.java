@@ -4,6 +4,7 @@ import com.DataVO.ReportVO;
 import com.Entity.FaultInfo;
 import com.Entity.Report;
 import com.Entity.TestEntity;
+import com.Feignclient.FileService;
 import com.Repository.TestRepository;
 import com.Service.TestExecuteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,6 @@ import java.util.List;
 public class TestExecuteServiceImpl implements TestExecuteService{
     @Autowired
     private TestRepository testRepository;
-
 
 
     @Override
@@ -397,5 +397,25 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         return false;
     }
 
+
+    private static List<String> getAllFiles(String postfix,String path){
+        List<String> fileList=new ArrayList<String>();
+        File dir=new File(path);
+        File[] allList = dir.listFiles();
+        for(File f:allList){
+            if(f.isDirectory()){
+                List<String> tempList=getAllFiles(postfix,f.getPath());
+                for(String s:tempList){
+                    fileList.add(s);
+                }
+            }
+
+            if(f.isFile() && f.getName().endsWith("."+postfix)){
+                fileList.add(f.getPath());
+            }
+
+        }
+        return fileList;
+    }
 
 }
