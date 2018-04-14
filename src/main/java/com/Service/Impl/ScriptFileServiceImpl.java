@@ -36,12 +36,10 @@ public class ScriptFileServiceImpl implements ScriptFileService {
             fileService.uploadFile(projectId,src+"/exectest.sh",branch,content);
         }else  if(lan.equals("python")){
             List<String> files=getAllFiles(".py","test",src,fileList);
-            //todo处理文件目录
             content=ScriptServiceImpl.pythonsh(files);
             fileService.uploadFile(projectId,src+"/exectest.sh",branch,content);
         }else if(lan.equals("c")){
             List<String> files=getAllFiles(".c","",src,fileList);
-            //todo处理文件目录
             content=ScriptServiceImpl.cmakefile(files);
             fileService.uploadFile(projectId,src+"/makefile",branch,content);
             content="make \n ./test \n";
@@ -75,10 +73,16 @@ public class ScriptFileServiceImpl implements ScriptFileService {
 
 
     private static List<String> getAllFiles(String postfix,String contain,String src, List<String>files){
+        int len=src.length();
+        if(src.endsWith("/")){
+
+        }else{
+            len++;
+        }
         List<String> fileList=new ArrayList<String>();
         for(String s:files){
             if(s.contains(src)&&s.endsWith(postfix)&&s.contains(contain)) {
-                fileList.add(s);
+                fileList.add(s.substring(len));
             }
 
         }
