@@ -1,11 +1,11 @@
-package com.Service.Impl;
+package com.util;
 
 import com.Service.ScriptService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
-public class ScriptServiceImpl implements ScriptService {
+
+public class ScriptGenerate{
     public static String javashAll(){
         return "#!/bin/sh \n mvn test ";
     }

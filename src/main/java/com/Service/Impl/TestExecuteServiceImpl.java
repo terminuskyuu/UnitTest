@@ -1,26 +1,17 @@
 package com.Service.Impl;
 
 import com.DataVO.ReportVO;
-import com.Entity.FaultInfo;
 import com.Entity.Report;
 import com.Entity.TestEntity;
-import com.Feignclient.FileService;
 import com.Repository.TestRepository;
 import com.Service.TestExecuteService;
+import com.util.ReportGenerate;
+import com.util.ScriptGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,13 +24,13 @@ public class TestExecuteServiceImpl implements TestExecuteService{
 
 
     @Override
-    public ReportVO javaTestAll(Long testId ,String username) {
+    public ReportVO javaTestAll(String path,Long testId ,String username) {
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
 
-        String path=""+src;
-        String shPath=src+"/exectest.sh";
+        String testPath=path+"/"+src;
+        String shPath=testPath+"/exectest.sh";
         File shfile = new File(shPath);
         if(!shfile.exists()){
             shfile.getParentFile().mkdirs();
@@ -48,7 +39,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             shfile.createNewFile();
             FileWriter fw = new FileWriter(shfile, false);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(ScriptServiceImpl.javashAll());
+            bw.write(ScriptGenerate.javashAll());
             bw.flush();
             bw.close();
             fw.close();
@@ -56,7 +47,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             e.printStackTrace();
         }
 
-        command="cd "+path+" && sh ./exectest.sh ";
+        command="cd "+testPath+" && sh ./exectest.sh ";
         String[] commands=new String[]{"/bin/sh","-c",command};
         String line = null;
         String out="";
@@ -76,14 +67,14 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         }
         System.out.println(out);
 
-        Report report=javaReport(src);
+        Report report=javaReport(testPath);
         boolean isSuccess=saveReport(report,testId,username);
 
         return report.toReportVO();
     }
 
     @Override
-    public ReportVO javaTest(List<String> file, Long testId ,String username) {
+    public ReportVO javaTest(String path,List<String> file, Long testId ,String username) {
         if(file.isEmpty()){
             return null;
         }
@@ -92,8 +83,8 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         String command="";
         String src=testRepository.findById(testId).getSrc();
 
-        String path=""+src;
-        String shPath=src+"/exectest.sh";
+        String testPath=path+"/"+src;
+        String shPath=testPath+"/exectest.sh";
         File shfile = new File(shPath);
         if(!shfile.exists()){
             shfile.getParentFile().mkdirs();
@@ -102,7 +93,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             shfile.createNewFile();
             FileWriter fw = new FileWriter(shfile, false);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(ScriptServiceImpl.javash(file));
+            bw.write(ScriptGenerate.javash(file));
             bw.flush();
             bw.close();
             fw.close();
@@ -110,7 +101,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             e.printStackTrace();
         }
 
-        command="cd "+path+" && sh ./exectest.sh ";
+        command="cd "+testPath+" && sh ./exectest.sh ";
         String[] commands=new String[]{"/bin/sh","-c",command};
         String line = null;
         String out="";
@@ -130,14 +121,14 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         }
         System.out.println(out);
 
-        Report report=javaReport(src);
+        Report report=javaReport(testPath);
         boolean isSuccess=saveReport(report,testId,username);
 
         return report.toReportVO();
     }
 
     @Override
-    public ReportVO pythonTest(List<String> file, Long testId ,String username) {
+    public ReportVO pythonTest(String path,List<String> file, Long testId ,String username) {
         if(file.isEmpty()){
             return null;
         }
@@ -146,8 +137,8 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         String command="";
         String src=testRepository.findById(testId).getSrc();
 
-        String path=""+src;
-        String shPath=src+"/exectest.sh";
+        String testPath=path+"/"+src;
+        String shPath=testPath+"/exectest.sh";
         File shfile = new File(shPath);
         if(!shfile.exists()){
             shfile.getParentFile().mkdirs();
@@ -156,7 +147,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             shfile.createNewFile();
             FileWriter fw = new FileWriter(shfile, false);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(ScriptServiceImpl.pythonsh(file));
+            bw.write(ScriptGenerate.pythonsh(file));
             bw.flush();
             bw.close();
             fw.close();
@@ -164,7 +155,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             e.printStackTrace();
         }
 
-        command="cd "+path+" && sh ./exectest.sh ";
+        command="cd "+testPath+" && sh ./exectest.sh ";
         String[] commands=new String[]{"/bin/sh","-c",command};
         String line = null;
         String out="";
@@ -184,16 +175,17 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         }
         System.out.println(out);
 
-        Report report=pythonReport(src);
+        Report report=pythonReport(testPath);
         boolean isSuccess=saveReport(report,testId,username);
 
         return report.toReportVO();
     }
 
     @Override
-    public ReportVO pythonTestAll(Long testId ,String username) {
+    public ReportVO pythonTestAll(String path,Long testId ,String username) {
         String src=testRepository.findById(testId).getSrc();
-        File dir=new File(src);
+        String testPath=path+"/"+src;
+        File dir=new File(testPath);
         if (!dir.isDirectory()) {
             System.out.println("not a dir");
             Report report=new Report();
@@ -214,7 +206,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             for(int i=0;i<pyList.length;i++){
                 files.add(pyList[i].getName());
             }
-            return pythonTest(files,testId,username);
+            return pythonTest(path,files,testId,username);
 
         }
 
@@ -222,13 +214,14 @@ public class TestExecuteServiceImpl implements TestExecuteService{
     }
 
     @Override
-    public ReportVO cTest(List<String> file, Long testId ,String username) {
+    public ReportVO cTest(String path,List<String> file, Long testId ,String username) {
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
 
-        String path=src+="/makefile";
-        File makefile = new File(path);
+        String testPath=path+"/"+src;
+        String makePath=testPath+"/makefile";
+        File makefile = new File(makePath);
         if(!makefile.exists()){
             makefile.getParentFile().mkdirs();
         }
@@ -237,7 +230,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             FileWriter fw = new FileWriter(makefile, false);
             BufferedWriter bw = new BufferedWriter(fw);
 
-            bw.write(ScriptServiceImpl.cmakefile(file));
+            bw.write(ScriptGenerate.cmakefile(file));
             bw.flush();
             bw.close();
             fw.close();
@@ -245,7 +238,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             e.printStackTrace();
         }
 
-        String shPath=src+="/exectest.sh";
+        String shPath=testPath+"/exectest.sh";
         File shfile = new File(shPath);
         if(!shfile.exists()){
             shfile.getParentFile().mkdirs();
@@ -254,7 +247,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             shfile.createNewFile();
             FileWriter fw = new FileWriter(shfile, false);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(ScriptServiceImpl.csh(src));
+            bw.write(ScriptGenerate.csh(testPath));
             bw.flush();
             bw.close();
             fw.close();
@@ -262,7 +255,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             e.printStackTrace();
         }
 
-        command="cd "+path+" && sh ./exectest.sh ";
+        command="cd "+testPath+" && sh ./exectest.sh ";
         String[] commands=new String[]{"/bin/sh","-c",command};
         String line = null;
         String out="";
@@ -282,7 +275,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         }
         System.out.println(out);
 
-        Report report=cReport(src);
+        Report report=cReport(testPath);
         boolean isSuccess=saveReport(report,testId,username);
 
         return report.toReportVO();
@@ -308,7 +301,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
                     }
                 }
             });
-            return ReportGenerateImpl.javaXmlReport(xmlList);
+            return ReportGenerate.javaXmlReport(xmlList);
 
         }
 
@@ -316,9 +309,10 @@ public class TestExecuteServiceImpl implements TestExecuteService{
     }
 
     @Override
-    public ReportVO cTestAll(Long testId ,String username) {
+    public ReportVO cTestAll(String path,Long testId ,String username) {
         String src=testRepository.findById(testId).getSrc();
-        File dir=new File(src);
+        String testPath=path+"/"+src;
+        File dir=new File(testPath);
         if (!dir.isDirectory()) {
             System.out.println("not a dir");
             Report report=new Report();
@@ -339,7 +333,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             for(int i=0;i<pyList.length;i++){
                 files.add(pyList[i].getName());
             }
-            return cTest(files,testId,username);
+            return cTest(path,files,testId,username);
 
         }
 
@@ -349,7 +343,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
     private Report pythonReport(String src){
         src+="/log.xml";
         File log=new File(src);
-        return ReportGenerateImpl.pythonXmlReport(log);
+        return ReportGenerate.pythonXmlReport(log);
     }
 
     private Report cReport(String src){
@@ -373,7 +367,7 @@ public class TestExecuteServiceImpl implements TestExecuteService{
             });
 
             log=xmlList[0];
-            report=ReportGenerateImpl.cXmlReport(log);
+            report= ReportGenerate.cXmlReport(log);
         }
         if(log==null){
             report.setError_info("no file");

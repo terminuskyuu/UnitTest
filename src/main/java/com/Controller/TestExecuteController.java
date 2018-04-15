@@ -5,6 +5,7 @@ import com.DataVO.ReportVO;
 import com.Feignclient.FileService;
 import com.Service.TestExecuteService;
 import com.Service.TestService;
+import com.util.CloneManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,17 +29,18 @@ public class TestExecuteController {
         String lan=testService.getTestById(id).getLanguage();
         String projectId=testService.getTestById(id).getProject_id();
         String branch=testService.getTestById(id).getBranch();
-        boolean isSuccess=fileService.cloneFile(projectId,branch);
-        if(!isSuccess){
+        String url=fileService.getUrl(projectId);
+        String path= CloneManager.cloneRepo(url,branch);
+        if(path==null){
             return null;
         }
         if(lan.equalsIgnoreCase(Language.java.toString())){
-            return testExecuteService.javaTestAll(id,username);
+            return testExecuteService.javaTestAll(path,id,username);
 
         }else if(lan.equalsIgnoreCase(Language.python.toString())){
-            return testExecuteService.pythonTestAll(id,username);
+            return testExecuteService.pythonTestAll(path,id,username);
         }else if(lan.equalsIgnoreCase(Language.c.toString())){
-            return testExecuteService.cTestAll(id,username);
+            return testExecuteService.cTestAll(path,id,username);
         }else{
             return null;
         }
@@ -51,17 +53,18 @@ public class TestExecuteController {
         String lan=testService.getTestById(id).getLanguage();
         String projectId=testService.getTestById(id).getProject_id();
         String branch=testService.getTestById(id).getBranch();
-        boolean isSuccess=fileService.cloneFile(projectId,branch);
-        if(!isSuccess){
+        String url=fileService.getUrl(projectId);
+        String path= CloneManager.cloneRepo(url,branch);
+        if(path==null){
             return null;
         }
         if(lan.equalsIgnoreCase(Language.java.toString())){
-            return testExecuteService.javaTest(file,id,username);
+            return testExecuteService.javaTest(path,file,id,username);
 
         }else if(lan.equalsIgnoreCase(Language.python.toString())){
-            return testExecuteService.pythonTest(file,id,username);
+            return testExecuteService.pythonTest(path,file,id,username);
         }else if(lan.equalsIgnoreCase(Language.c.toString())){
-            return testExecuteService.cTest(file,id,username);
+            return testExecuteService.cTest(path,file,id,username);
         }else{
             return null;
         }

@@ -4,6 +4,7 @@ import com.Entity.TestEntity;
 import com.Feignclient.FileService;
 import com.Repository.TestRepository;
 import com.Service.ScriptFileService;
+import com.util.ScriptGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,15 +33,15 @@ public class ScriptFileServiceImpl implements ScriptFileService {
         String content="";
 
         if(lan.equals("java")){
-            content=ScriptServiceImpl.javashAll();
+            content= ScriptGenerate.javashAll();
             fileService.uploadFile(projectId,src+"/exectest.sh",branch,content);
         }else  if(lan.equals("python")){
             List<String> files=getAllFiles(".py","test",src,fileList);
-            content=ScriptServiceImpl.pythonsh(files);
+            content= ScriptGenerate.pythonsh(files);
             fileService.uploadFile(projectId,src+"/exectest.sh",branch,content);
         }else if(lan.equals("c")){
             List<String> files=getAllFiles(".c","",src,fileList);
-            content=ScriptServiceImpl.cmakefile(files);
+            content= ScriptGenerate.cmakefile(files);
             fileService.uploadFile(projectId,src+"/makefile",branch,content);
             content="make \n ./test \n";
             fileService.uploadFile(projectId,src+"/exectest.sh",branch,content);

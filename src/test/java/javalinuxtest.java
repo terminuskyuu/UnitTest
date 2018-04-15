@@ -1,6 +1,4 @@
-import com.DataVO.ReportVO;
-import com.Entity.Report;
-import com.Service.Impl.ScriptServiceImpl;
+import com.util.ScriptGenerate;
 
 import java.io.*;
 
@@ -9,7 +7,7 @@ public class javalinuxtest {
     public static void main(String[] args) {
         String path="/home/xinyu/java/abcc";
 
-        String out=ScriptServiceImpl.javashAll();
+        String out= ScriptGenerate.javashAll();
         javaTestAll();
 
     }
@@ -29,7 +27,7 @@ public class javalinuxtest {
             shfile.createNewFile();
             FileWriter fw = new FileWriter(shfile, false);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(ScriptServiceImpl.javashAll());
+            bw.write(ScriptGenerate.javashAll());
             bw.flush();
             bw.close();
             fw.close();

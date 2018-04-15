@@ -1,4 +1,4 @@
-package com.Service.Impl;
+package com.util;
 
 import com.Entity.FaultInfo;
 import com.Entity.Report;
@@ -18,8 +18,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@Service
-public class ReportGenerateImpl {
+
+public class ReportGenerate {
     public  static Report javaXmlReport(File[] fileList){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         Report report=new Report();
