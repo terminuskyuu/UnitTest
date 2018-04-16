@@ -28,7 +28,6 @@ public class TestExecuteServiceImpl implements TestExecuteService{
         Runtime runtime = Runtime.getRuntime();
         String command="";
         String src=testRepository.findById(testId).getSrc();
-
         String testPath=path+"/"+src;
         String shPath=testPath+"/exectest.sh";
         File shfile = new File(shPath);

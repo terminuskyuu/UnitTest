@@ -1,6 +1,6 @@
 package com.Service;
 
 public interface ScriptFileService {
-    public boolean uploadScript(long testId);
+    public boolean uploadScript(String path,long testId);
 
 }

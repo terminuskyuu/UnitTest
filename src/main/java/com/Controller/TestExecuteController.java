@@ -2,7 +2,7 @@ package com.Controller;
 
 import com.Common.Language;
 import com.DataVO.ReportVO;
-import com.Feignclient.FileService;
+import com.Service.ApiCallService;
 import com.Service.TestExecuteService;
 import com.Service.TestService;
 import com.util.CloneManager;
@@ -21,7 +21,7 @@ public class TestExecuteController {
     @Autowired
     TestExecuteService testExecuteService;
     @Autowired
-    private FileService fileService;
+    private ApiCallService apiCallService;
 
     @RequestMapping(value = "/test/execute-all", method = RequestMethod.POST)
     public ReportVO TestAll(@RequestParam("id") long id,@RequestParam ("username") String username){
@@ -29,7 +29,7 @@ public class TestExecuteController {
         String lan=testService.getTestById(id).getLanguage();
         String projectId=testService.getTestById(id).getProject_id();
         String branch=testService.getTestById(id).getBranch();
-        String url=fileService.getUrl(projectId);
+        String url= apiCallService.getUrl(projectId);
         String path= CloneManager.cloneRepo(url,branch);
         if(path==null){
             return null;
@@ -53,7 +53,7 @@ public class TestExecuteController {
         String lan=testService.getTestById(id).getLanguage();
         String projectId=testService.getTestById(id).getProject_id();
         String branch=testService.getTestById(id).getBranch();
-        String url=fileService.getUrl(projectId);
+        String url= apiCallService.getUrl(projectId);
         String path= CloneManager.cloneRepo(url,branch);
         if(path==null){
             return null;
