@@ -15,7 +15,7 @@ public class FileSearch {
     }
 
 
-    private static List<String> getAllFiles(String postfix, String content, String path,String pre){
+    public static List<String> getAllFiles(String postfix, String content, String path,String pre){
         List<String> fileList=new ArrayList<String>();
         File dir=new File(path);
         File[] allList = dir.listFiles();
@@ -35,7 +35,7 @@ public class FileSearch {
 
             }
 
-            if(f.isFile() && f.getName().endsWith(postfix)&&f.getName().contains(content)){
+            if(f.isFile() && f.getName().endsWith(postfix)&&f.getName().toLowerCase().contains(content)){
                 if(pre!=null&&!pre.equals("")){
                     fileList.add(pre+"/"+f.getName());
                 }else{

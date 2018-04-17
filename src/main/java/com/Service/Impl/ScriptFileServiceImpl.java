@@ -4,6 +4,7 @@ import com.Entity.TestEntity;
 import com.Repository.TestRepository;
 import com.Service.ApiCallService;
 import com.Service.ScriptFileService;
+import com.util.FileSearch;
 import com.util.ScriptGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,6 +81,7 @@ public class ScriptFileServiceImpl implements ScriptFileService {
             System.out.println("not a dir");
             return null;
         } else {
+            /**
             // 内部匿名类，用来过滤文件类型
             File[] pyList = dir.listFiles(new FileFilter() {
                 public boolean accept(File file) {
@@ -94,7 +96,9 @@ public class ScriptFileServiceImpl implements ScriptFileService {
             for (int i = 0; i < pyList.length; i++) {
                 files.add(pyList[i].getName());
             }
-            return files;
+             return files;
+             */
+            return FileSearch.getAllFiles(postfix,contain,testPath,"");
         }
     }
 
