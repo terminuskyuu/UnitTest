@@ -1,7 +1,9 @@
 package com.Controller;
 
 import com.DataVO.ReportVO;
+import com.Entity.TestEntity;
 import com.Service.ApiCallService;
+import com.Service.PipelineService;
 import com.Service.ScriptFileService;
 import com.Service.TestService;
 import com.util.CloneManager;
@@ -19,9 +21,11 @@ public class ScriptFileController {
     private TestService testService;
     @Autowired
     private ApiCallService apiCallService;
+    @Autowired
+    private PipelineService pipelineService;
 
     @RequestMapping(value = "/test/create-script", method = RequestMethod.POST)
-    public boolean TestAll(@RequestParam("id") long id){
+    public boolean TestAllScript(@RequestParam("id") long id){
         String projectId=testService.getTestById(id).getProject_id();
         String branch=testService.getTestById(id).getBranch();
         String url= apiCallService.getUrl(projectId);
@@ -29,5 +33,19 @@ public class ScriptFileController {
         return scriptFileService.uploadScript(path,id);
 
     }
+
+    @RequestMapping(value = "/test/pipeline-script", method = RequestMethod.POST)
+    public boolean pipelineScript(@RequestParam("group") String group ,@RequestParam("project") String project){
+        return scriptFileService.pipelineScript(group, project);
+
+    }
+
+
+    @RequestMapping(value = "/starttest", method = RequestMethod.POST)
+    public ReportVO PipelineTestXml(@RequestParam("group") String group ,@RequestParam("project") String project){
+        return pipelineService.pipelineReport(group, project);
+
+    }
+
 
 }

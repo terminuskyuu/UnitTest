@@ -53,6 +53,41 @@ public class ScriptFileServiceImpl implements ScriptFileService {
         return true;
     }
 
+    public boolean pipelineScript(String group,String project){
+        TestEntity test=testRepository.findByProject_id(project).get(0);
+        String src=test.getSrc();
+        String projectId=project;
+        String lan=test.getLanguage();
+        String branch="master";
+        String content="";
+
+        if(lan.equals("java")){
+            content= ScriptGenerate.javashPipeline(group,project);
+            String response=apiCallService.uploadFile(projectId,"/test.sh",branch,content);
+            System.out.println(response);
+        }else  if(lan.equals("python")){
+            List<String> files=FileSearch.getAllFiles(".py","test","/project/"+group+"/"+project,"");
+            content= ScriptGenerate.pyshPipeline(group,project,files);
+            String response=apiCallService.uploadFile(projectId,"/test.sh",branch,content);
+            System.out.println(response);
+        }else if(lan.equals("c")){
+            List<String> files=FileSearch.getAllFiles(".c","","/project/"+group+"/"+project,"");
+            String makecontent= ScriptGenerate.cmakefile(files);
+            String response=apiCallService.uploadFile(projectId,"/makefile",branch,makecontent);
+            System.out.println(response);
+            content=ScriptGenerate.cshPipeline(group,project);
+            response=apiCallService.uploadFile(projectId,"/test.sh",branch,content);
+            System.out.println(response);
+        }else{
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+
     private static File createFile(String content,String path){
         File file = new File(path);
         if(!file.exists()){
