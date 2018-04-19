@@ -1,10 +1,10 @@
 package com.Controller;
 
+import com.Common.BugImp;
+import com.Common.BugState;
 import com.Common.Language;
-import com.DataVO.MyResponseData;
-import com.DataVO.ReportVO;
-import com.DataVO.TestCaseVO;
-import com.DataVO.TestVO;
+import com.DataVO.*;
+import com.Service.BugService;
 import com.Service.TestCaseService;
 import com.Service.TestExecuteService;
 import com.Service.TestService;
@@ -20,6 +20,8 @@ public class Test1 {
     TestCaseService testCaseService;
     @Autowired
     TestExecuteService testExecuteService;
+    @Autowired
+    BugService bugService;
 
     @RequestMapping(value = "/test1", method = RequestMethod.GET)
     public MyResponseData<Boolean> createTest(){
@@ -69,6 +71,28 @@ public class Test1 {
         }
 
 
+    }
+
+    @RequestMapping(value = "/bug1", method = RequestMethod.GET)
+    public MyResponseData<Boolean> createBug(){
+        BugVO bugVO=new BugVO();
+        bugVO.setProject_id("001");
+        bugVO.setImportance(BugImp.common.toString());
+        bugVO.setName("asdas");
+        bugVO.setInfo("asasqqqqqqqq");
+        bugVO.setState(BugState.newbuilt.toString());
+        bugService.createBug(bugVO);
+        return new MyResponseData<Boolean>("succeed", new String[]{"成功创建缺陷！"}, true);
+    }
+
+    @RequestMapping(value = "/bug/change1", method = RequestMethod.POST)
+    public MyResponseData<Boolean> changeBug(){
+        long id=1;
+        BugChangeVO bugChangeVO=new BugChangeVO();
+        bugChangeVO.setAfter_state(BugState.closed.toString());
+        bugChangeVO.setInfo("asdasd");
+        bugService.createBugChange(bugChangeVO,id);
+        return new MyResponseData<Boolean>("succeed", new String[]{"成功更改缺陷！"}, true);
     }
 
 }

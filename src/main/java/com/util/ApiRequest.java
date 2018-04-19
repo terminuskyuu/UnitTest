@@ -13,6 +13,12 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class ApiRequest {
+public static void main(String args[]){
+    System.out.println(get("http://localhost:8701/test/get","id=1"));
+
+}
+
+
 
     public static String get(String url,String param)
     {
@@ -22,9 +28,9 @@ public class ApiRequest {
             String urlNameString = null;
 
             if(param == null)
-                urlNameString =""+url;
+                urlNameString ="http://"+url;
             else
-                urlNameString = ""+url + "?" + param;
+                urlNameString = "http://"+url + "?" + param;
 
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
@@ -65,7 +71,7 @@ public class ApiRequest {
         BufferedReader in = null;
         String result = "";
         try {
-            URL realUrl = new URL("http://119.29.157.178/api/v4"+url);
+            URL realUrl = new URL("http://"+url);
             // 打开和URL之间的连接
             URLConnection conn = realUrl.openConnection();
             // 设置通用的请求属性

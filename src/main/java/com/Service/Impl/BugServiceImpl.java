@@ -10,7 +10,9 @@ import com.Service.BugService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,6 +64,9 @@ public class BugServiceImpl implements BugService{
 
     @Override
     public boolean createBugChange(BugChangeVO bugChangeVO, Long bugId) {
+        Date d = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        bugChangeVO.setTime(sdf.format(d));
         BugChange bugChange=new BugChange(bugChangeVO);
         Bug bug=bugRepository.findById(bugId);
         bugChange.setBefore_state(bug.getState());
