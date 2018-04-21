@@ -116,6 +116,9 @@ public class PipelineServiceImpl implements PipelineService {
 
 
     private boolean saveReport(Report report, Long testId ,String username){
+        if(report==null||report.getCase_num()==0){
+            return  false;
+        }
         TestEntity testEntity=testRepository.findById(testId);
         testEntity.setLatest_time(report.getTime());
         testEntity.setPerform_times(testEntity.getPerform_times()+1);
