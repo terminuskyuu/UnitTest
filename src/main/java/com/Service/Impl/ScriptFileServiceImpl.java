@@ -54,10 +54,15 @@ public class ScriptFileServiceImpl implements ScriptFileService {
     }
 
     public boolean pipelineScript(String group,String project){
+        /**
         TestEntity test=testRepository.findByProject_id(project).get(0);
         String src=test.getSrc();
-        String projectId=project;
+
         String lan=test.getLanguage();
+         */
+        String lan=FileSearch.getLanguage("/project/"+group+"/"+project);
+
+        String projectId=project;
         String branch="master";
         String content="";
 
