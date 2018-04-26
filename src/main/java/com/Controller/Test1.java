@@ -9,8 +9,12 @@ import com.Service.TestCaseService;
 import com.Service.TestExecuteService;
 import com.Service.TestService;
 import com.util.CloneManager;
+import com.util.ShellCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class Test1 {
@@ -47,11 +51,10 @@ public class Test1 {
     }
 
 
-    @RequestMapping(value = "/execute-all1", method = RequestMethod.POST)
+    @RequestMapping(value = "/executejava-all", method = RequestMethod.POST)
     public ReportVO TestAll(){
         long id=1;
         String username="aaa";
-        String lan=testService.getTestById(id).getLanguage();
         String projectId=testService.getTestById(id).getProject_id();
         String branch=testService.getTestById(id).getBranch();
         String url="https://github.com/terminuskyuu/helloTest.git";
@@ -59,16 +62,32 @@ public class Test1 {
         if(path==null){
             return null;
         }
-        if(lan.equalsIgnoreCase(Language.java.toString())){
-            return testExecuteService.javaTestAll(path,id,username);
 
-        }else if(lan.equalsIgnoreCase(Language.python.toString())){
-            return testExecuteService.pythonTestAll(path,id,username);
-        }else if(lan.equalsIgnoreCase(Language.c.toString())){
-            return testExecuteService.cTestAll(path,id,username);
-        }else{
+            ReportVO reportVO=testExecuteService.javaTestAll(path,id,username);
+            ShellCommand.clearDir(path);
+            return reportVO;
+
+
+
+    }
+
+    @RequestMapping(value = "/executejava-files", method = RequestMethod.POST)
+    public ReportVO TestjavaPart(){
+        long id=1;
+        String username="aaa";
+        String projectId=testService.getTestById(id).getProject_id();
+        String branch=testService.getTestById(id).getBranch();
+        String url="https://github.com/terminuskyuu/helloTest.git";
+        String path= CloneManager.cloneRepo(url,branch);
+        if(path==null){
             return null;
         }
+        List<String> file=new ArrayList<String>();
+        file.add("HelloTest");
+        file.add("Hello3Test");
+
+        return testExecuteService.javaTest(path,file,id,username);
+
 
 
     }
@@ -90,7 +109,6 @@ public class Test1 {
     public ReportVO Testpy(){
         long id=1;
         String username="aaa";
-        String lan=testService.getTestById(id).getLanguage();
         String projectId=testService.getTestById(id).getProject_id();
         String branch=testService.getTestById(id).getBranch();
         String url="https://github.com/terminuskyuu/pyunittest.git";
@@ -98,16 +116,9 @@ public class Test1 {
         if(path==null){
             return null;
         }
-        if(lan.equalsIgnoreCase(Language.java.toString())){
-            return testExecuteService.javaTestAll(path,id,username);
-
-        }else if(lan.equalsIgnoreCase(Language.python.toString())){
-            return testExecuteService.pythonTestAll(path,id,username);
-        }else if(lan.equalsIgnoreCase(Language.c.toString())){
-            return testExecuteService.cTestAll(path,id,username);
-        }else{
-            return null;
-        }
+        ReportVO reportVO=testExecuteService.pythonTestAll(path,id,username);
+        ShellCommand.clearDir(path);
+        return reportVO;
 
 
     }
@@ -127,7 +138,7 @@ public class Test1 {
 
     @RequestMapping(value = "/executec1", method = RequestMethod.POST)
     public ReportVO Testc(){
-        long id=2;
+        long id=1;
         String username="aaa";
         String lan=testService.getTestById(id).getLanguage();
         String projectId=testService.getTestById(id).getProject_id();
@@ -137,16 +148,11 @@ public class Test1 {
         if(path==null){
             return null;
         }
-        if(lan.equalsIgnoreCase(Language.java.toString())){
-            return testExecuteService.javaTestAll(path,id,username);
+        ReportVO reportVO=testExecuteService.cTestAll(path,id,username);
+        ShellCommand.clearDir(path);
+        return reportVO;
 
-        }else if(lan.equalsIgnoreCase(Language.python.toString())){
-            return testExecuteService.pythonTestAll(path,id,username);
-        }else if(lan.equalsIgnoreCase(Language.c.toString())){
-            return testExecuteService.cTestAll(path,id,username);
-        }else{
-            return null;
-        }
+
 
 
     }
