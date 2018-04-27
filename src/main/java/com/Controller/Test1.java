@@ -4,10 +4,7 @@ import com.Common.BugImp;
 import com.Common.BugState;
 import com.Common.Language;
 import com.DataVO.*;
-import com.Service.BugService;
-import com.Service.TestCaseService;
-import com.Service.TestExecuteService;
-import com.Service.TestService;
+import com.Service.*;
 import com.util.CloneManager;
 import com.util.ShellCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +23,8 @@ public class Test1 {
     TestExecuteService testExecuteService;
     @Autowired
     BugService bugService;
+    @Autowired
+    ReportService reportService;
 
     @RequestMapping(value = "/test1", method = RequestMethod.GET)
     public MyResponseData<Boolean> createTest(){
@@ -179,6 +178,31 @@ public class Test1 {
         bugChangeVO.setInfo("asdasd");
         bugService.createBugChange(bugChangeVO,id);
         return new MyResponseData<Boolean>("succeed", new String[]{"成功更改缺陷！"}, true);
+    }
+
+    @RequestMapping(value = "/report1", method = RequestMethod.GET)
+    public MyResponseData<Boolean> report(){
+        FaultInfoVO faultInfoVO=new FaultInfoVO();
+        ReportVO reportVO=new ReportVO();
+        reportVO.setCase_num(3);
+        reportVO.setFail_num(2);
+        reportVO.setSucess_num(1);
+        faultInfoVO.setCase_name("assasa");
+        faultInfoVO.setFunc_name("func1");
+        faultInfoVO.setLine(11);
+        faultInfoVO.setType("ssss error");
+        List<FaultInfoVO> list=new ArrayList<FaultInfoVO>();
+        list.add(faultInfoVO);
+        reportVO.setFault_info(list);
+
+        reportService.createReport(reportVO,new Long(1));
+        return new MyResponseData<Boolean>("succeed", new String[]{"成功更改缺陷！"}, true);
+    }
+
+    @RequestMapping(value = "/report1", method = RequestMethod.POST)
+    public ReportVO reportget(){
+
+        return reportService.getReportById(new Long(1));
     }
 
 }

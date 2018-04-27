@@ -17,7 +17,7 @@ public class TestCaseController {
     @RequestMapping(value = "/testcase/create", method = RequestMethod.POST)
     public MyResponseData<Boolean> createTestCase(@RequestParam("testId") long testId,@RequestParam("caseId") String caseId,
                                                   @RequestParam("name") String name,@RequestParam("info") String info,
-                                                  @RequestParam("testId") String file){
+                                                  @RequestParam("file") String file){
         TestCaseVO testCaseVO=new TestCaseVO();
         testCaseVO.setCaseId(caseId);
         testCaseVO.setFile(file);
@@ -36,7 +36,7 @@ public class TestCaseController {
     @RequestMapping(value = "/testcase/update", method = RequestMethod.POST)
     public MyResponseData<Boolean> updateTestCase(@RequestParam("id") long id,@RequestParam("caseId") String caseId,
                                                   @RequestParam("name") String name,@RequestParam("info") String info,
-                                                  @RequestParam("testId") String file){
+                                                  @RequestParam("file") String file){
         TestCaseVO testCaseVO=new TestCaseVO();
         testCaseVO.setId(id);
         testCaseVO.setCaseId(caseId);
