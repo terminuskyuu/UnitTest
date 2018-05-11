@@ -10,5 +10,5 @@ public interface PipelineService {
 
     public Report cReport(String src);
 
-    public ReportVO pipelineReport(String group,String project);
+    public ReportVO pipelineReport(String group,String project,String projectId);
 }

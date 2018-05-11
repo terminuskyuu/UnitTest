@@ -7,6 +7,7 @@ import com.Entity.TestEntity;
 import com.Repository.TestRepository;
 import com.Service.PipelineService;
 import com.Service.TestService;
+import com.util.FileSearch;
 import com.util.ReportGenerate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,11 +23,11 @@ public class PipelineServiceImpl implements PipelineService {
     private TestService testService;
 
     @Override
-    public ReportVO pipelineReport(String group, String project) {
+    public ReportVO pipelineReport(String group, String project,String projectId) {
         String src=DefaultPath.getHome()+ "/project/"+group+"/"+project;
-        TestEntity test=testRepository.findByProject_id(project).get(0);
+        TestEntity test=testRepository.findByProject_id(projectId).get(0);
         Long testId=test.getId();
-        String lan=test.getLanguage();
+        String lan=FileSearch.getLanguage(src);
 
         if(lan.equals("java")){
            Report report=javaReport(src);
