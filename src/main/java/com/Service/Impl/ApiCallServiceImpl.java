@@ -2,6 +2,7 @@ package com.Service.Impl;
 
 import com.Service.ApiCallService;
 import com.util.ApiRequest;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +21,10 @@ public class ApiCallServiceImpl implements ApiCallService {
     @Override
     public String getUrl(String projectId) {
         //String url="https://github.com/terminuskyuu/helloTest.git";
-        String url=ApiRequest.get(gitUrl+"/repository/"+projectId,null);
+        String json=ApiRequest.get(gitUrl+"/project/"+projectId,null);
+        JSONObject project=new JSONObject(json);
+        String url=(String) project.get("http_url_to_repo");
+
         return url;
     }
 

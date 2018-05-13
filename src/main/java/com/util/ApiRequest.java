@@ -2,6 +2,8 @@ package com.util;
 
 
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,8 +16,11 @@ import java.util.Map;
 
 public class ApiRequest {
 public static void main(String args[]){
-    System.out.println(get("http://localhost:8701/test/get","id=1"));
-
+    //System.out.println(get("http://localhost:8701/test/get","id=1"));
+    String json=ApiRequest.get("139.219.66.203:8762/project/1",null);
+    JSONObject project=new JSONObject(json);
+    String url=(String) project.get("http_url_to_repo");
+    System.out.println(url);
 }
 
 
