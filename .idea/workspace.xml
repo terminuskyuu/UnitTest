@@ -3,10 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="461acb34-9ae7-4dbd-a30e-6369c97cc3c7" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Controller/ScriptFileController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Controller/ScriptFileController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Service/Impl/PipelineServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Service/Impl/PipelineServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/Service/PipelineService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Service/PipelineService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/ddd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ddd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/Service/Impl/TestServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/Service/Impl/TestServiceImpl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,38 +19,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ScriptFileController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ScriptFileController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/Controller/ScriptFileController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
+            <state relative-caret-position="298">
               <caret line="45" column="11" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BugController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/Controller/BugController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="74" column="40" lean-forward="true" selection-start-line="74" selection-start-column="40" selection-end-line="74" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Language.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/Common/Language.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
-              <caret line="5" column="12" selection-start-line="5" selection-start-column="12" selection-end-line="5" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PipelineServiceImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/PipelineServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="42" column="53" lean-forward="true" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -140,7 +110,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/Service/Impl/ScriptFileServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/Service/Impl/TestCaseServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/util/ShellCommand.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/Service/Impl/TestServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/Controller/TestManageController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/Service/BugService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/Service/Impl/BugServiceImpl.java" />
@@ -159,6 +128,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/Controller/ScriptFileController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/Service/PipelineService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/Service/Impl/PipelineServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/Service/Impl/TestServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -310,9 +280,9 @@
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -856,6 +826,8 @@
       <workItem from="1526302088811" duration="1618000" />
       <workItem from="1526368990183" duration="905000" />
       <workItem from="1526450549181" duration="3085000" />
+      <workItem from="1526463523806" duration="187000" />
+      <workItem from="1526475616595" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary="service setup">
       <created>1521529518406</created>
@@ -1081,11 +1053,18 @@
       <option name="project" value="LOCAL" />
       <updated>1526282042911</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="starttest debug">
+      <created>1526463694585</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1526463694585</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="224504000" />
+    <option name="totallyTimeSpent" value="224728000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="740" extended-state="6" />
@@ -1133,7 +1112,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add branch ,controller" />
     <MESSAGE value="controller" />
     <MESSAGE value="url change" />
     <MESSAGE value="use sh" />
@@ -1158,7 +1136,8 @@
     <MESSAGE value="little change 2" />
     <MESSAGE value="url get" />
     <MESSAGE value="url get debug" />
-    <option name="LAST_COMMIT_MESSAGE" value="url get debug" />
+    <MESSAGE value="starttest debug" />
+    <option name="LAST_COMMIT_MESSAGE" value="starttest debug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1353,20 +1332,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/BugServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/TestServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/util/FileSearch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-152">
@@ -1451,13 +1416,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/TestExecuteServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="307" column="40" selection-start-line="307" selection-start-column="40" selection-end-line="307" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/util/ReportGenerate.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="570">
@@ -1476,10 +1434,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
-          <folding>
-            <element signature="e#325#326#0" expanded="true" />
-            <element signature="e#355#356#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1497,6 +1451,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/PipelineServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="42" column="53" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/BugServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/TestServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="33" column="19" selection-start-line="33" selection-start-column="19" selection-end-line="33" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/TestExecuteServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="307" column="40" selection-start-line="307" selection-start-column="40" selection-end-line="307" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/Common/Language.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -1506,22 +1488,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/Controller/BugController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="74" column="40" lean-forward="true" selection-start-line="74" selection-start-column="40" selection-end-line="74" selection-end-column="40" />
+        <state relative-caret-position="540">
+          <caret line="74" column="40" selection-start-line="74" selection-start-column="40" selection-end-line="74" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/Controller/ScriptFileController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
+        <state relative-caret-position="298">
           <caret line="45" column="11" selection-start-line="45" selection-start-column="11" selection-end-line="45" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/Service/Impl/PipelineServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="42" column="53" lean-forward="true" selection-start-line="42" selection-start-column="53" selection-end-line="42" selection-end-column="53" />
         </state>
       </provider>
     </entry>
